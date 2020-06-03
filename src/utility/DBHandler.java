@@ -70,4 +70,14 @@ public class DBHandler {
     entityManager.close();
   }
 
+  public static void removeTaskFromDB(int id){
+    EntityManager entityManager = EntityManager4TaskList.getEntityManager();
+
+    Task dataInDB = (Task)entityManager.find(Task.class, id);
+    entityManager.getTransaction().begin();
+    entityManager.remove(dataInDB);
+    entityManager.getTransaction().commit();
+
+    entityManager.close();
+  }
 }
