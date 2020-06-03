@@ -29,6 +29,7 @@ public class WB {
   public static final String PATH_DESTROY = "/destroy";
   public static final String PATH_EDIT = "/edit";
   public static final String PATH_NEW = "/new";
+  public static final String PATH_SHOW = "/show";
 
 
 
