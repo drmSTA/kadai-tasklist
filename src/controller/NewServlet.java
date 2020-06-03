@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,9 +14,9 @@ import utility.WB;
 /**
  * Servlet implementation class NewServlet
  */
-@WebServlet("/new")
+@WebServlet(WB.PATH_NEW)
 public class NewServlet extends HttpServlet {
-  private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 20200604L;
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -33,11 +32,10 @@ public class NewServlet extends HttpServlet {
       // CSRF対策
       request.setAttribute(WB.KEY_TOKEN, request.getSession().getId());
 
-      //アクセス時に内容未入力の Task インスタンスを作成
+      //アクセス時に内容未入力の Task インスタンスを作成し、request 設定
       request.setAttribute(WB.KEY_TASK, new Task());
 
+      //ページ転送
       request.getRequestDispatcher(WB.PATH_NEW_JSP).forward(request, response);
-
     }
-
 }
