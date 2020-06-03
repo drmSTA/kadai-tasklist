@@ -30,6 +30,7 @@ public class WB {
   public static final String PATH_EDIT = "/edit";
   public static final String PATH_NEW = "/new";
   public static final String PATH_SHOW = "/show";
+  public static final String PATH_UPDATE = "/update";
 
 
 
