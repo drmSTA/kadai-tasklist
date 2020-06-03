@@ -32,7 +32,7 @@ public class EditServlet extends HttpServlet {
    * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
    */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      int id = Integer.parseInt(request.getParameter(WB.KEY_ID));
+      int id = Integer.parseInt(request.getParameter(WB.KEY_TASK_ID));
       Task task = DBHandler.getTask(id);
 
       // registry task and session id into session scope

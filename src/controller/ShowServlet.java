@@ -23,14 +23,13 @@ public class ShowServlet extends HttpServlet {
      */
     public ShowServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
   /**
    * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
    */
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    int id = Integer.parseInt(request.getParameter(WB.KEY_ID));
+    int id = Integer.parseInt(request.getParameter(WB.KEY_TASK_ID));
     Task task = DBHandler.getTask(id);
     request.setAttribute(WB.KEY_TASK, task);
 
