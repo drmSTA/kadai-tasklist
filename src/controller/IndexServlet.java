@@ -3,8 +3,6 @@ package controller;
 import java.io.IOException;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +18,7 @@ import utility.WB;
  */
 @WebServlet(WB.PATH_INDEX)
 public class IndexServlet extends HttpServlet {
-  private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 20200604L;
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -38,22 +36,23 @@ public class IndexServlet extends HttpServlet {
         page = Integer.parseInt(request.getParameter(WB.KEY_PAGE));
     } catch(NumberFormatException e) {}
 
-    // get tasks from SQL
+    // DB 上にある Task を VALUE_PAGE_UL を上限に取得する
     List<Task> tasks = DBHandler.getTasks(page, WB.VALUE_PAGE_UL);
 
-    // get the count of total tasks
+    // DB 上にある Task 数を取得する
     long tasksCount = DBHandler.getTotalCountOfTasks();
 
-    request.setAttribute(WB.KEY_TASKS, tasks);
-    request.setAttribute(WB.KEY_TASKS_COUNT, tasksCount);
-    request.setAttribute(WB.KEY_PAGE_UL, WB.VALUE_PAGE_UL);
-    request.setAttribute(WB.KEY_PAGE, page);
-
+    // flush 処理 (session scope -> response 設定へ移動する)
     if(request.getSession().getAttribute(WB.KEY_FLUSH) != null) {
       request.setAttribute(WB.KEY_FLUSH, request.getSession().getAttribute(WB.KEY_FLUSH));
       request.getSession().removeAttribute(WB.KEY_FLUSH);
     }
 
+    // 必要な情報を設定、index ページへ転送
+    request.setAttribute(WB.KEY_TASKS, tasks);
+    request.setAttribute(WB.KEY_TASKS_COUNT, tasksCount);
+    request.setAttribute(WB.KEY_PAGE_UL, WB.VALUE_PAGE_UL);
+    request.setAttribute(WB.KEY_PAGE, page);
     request.getRequestDispatcher(WB.PATH_INDEX_JSP).forward(request, response);
   }
 }
