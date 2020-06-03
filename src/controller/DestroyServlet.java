@@ -14,7 +14,7 @@ import utility.WB;
 /**
  * Servlet implementation class DestroyServlet
  */
-@WebServlet("/destroy")
+@WebServlet(WB.PATH_DESTROY)
 public class DestroyServlet extends HttpServlet {
   private static final long serialVersionUID = 20200604L;
 
