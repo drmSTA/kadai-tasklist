@@ -27,6 +27,7 @@ public class WB {
   public static final String PATH_INDEX = "/index";
   public static final String PATH_CREATE = "/create";
   public static final String PATH_DESTROY = "/destroy";
+  public static final String PATH_EDIT = "/edit";
 
 
 
