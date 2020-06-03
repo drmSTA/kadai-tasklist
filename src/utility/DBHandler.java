@@ -39,7 +39,7 @@ public class DBHandler {
     return result;
   }
 
-  public static void addTaskIntoDB(Task task){
+  public static void addNewTaskIntoDB(Task task){
     EntityManager entityManager = EntityManager4TaskList.getEntityManager();
 
     entityManager.getTransaction().begin();
@@ -56,6 +56,18 @@ public class DBHandler {
 
     entityManager.close();
     return result;
+  }
+
+  public static void updateTaskInDB(int id, Task updatedData){
+    EntityManager entityManager = EntityManager4TaskList.getEntityManager();
+
+    Task dataInDB = (Task)entityManager.find(Task.class, id);
+    dataInDB.update(updatedData);
+    entityManager.getTransaction().begin();
+    entityManager.persist(dataInDB);
+    entityManager.getTransaction().commit();
+
+    entityManager.close();
   }
 
 }

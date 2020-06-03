@@ -57,7 +57,7 @@ public class CreateServlet extends HttpServlet {
             rd.forward(request, response);
         } else {
             // perform a commitment
-            DBHandler.addTaskIntoDB(task);
+            DBHandler.addNewTaskIntoDB(task);
             // set a notice
             request.getSession().setAttribute(WB.KEY_FLUSH, "登録が完了しました。");
 

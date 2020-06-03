@@ -117,4 +117,10 @@ public class Task {
 
       return result;
     }
+
+    // database上の既存のタスクを更新するときに呼び出される
+    public void update(Task newData){
+      this.content = newData.content;
+      this.updatedAt = newData.updatedAt;
+    }
 }
