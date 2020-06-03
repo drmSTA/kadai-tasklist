@@ -1,6 +1,8 @@
 package model;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+
+import utility.StringValidator;
 
 @Entity
 @NamedQueries({
@@ -96,5 +100,21 @@ public class Task {
     // 既存のエントリーの修正や更新時に呼び出されるメソッド
     public void setUpdatedAtPresent(){
       this.updatedAt = new Timestamp(System.currentTimeMillis());
+    }
+
+
+    // 入力された内容の妥当性を検証する
+    public List<String> validate(){
+      ArrayList<String> result = new ArrayList<>();
+
+      if(StringValidator.isEmpty(content)){
+        result.add("内容を入力してください");
+      }
+
+      if(!StringValidator.isEmpty(content) && StringValidator.isNotAcceptableLength(content, CONTENT_LENGTH_UL)){
+        result.add("入力された文字数が " + Task.CONTENT_LENGTH_UL + "文字を超えないように調整ください");
+      }
+
+      return result;
     }
 }
