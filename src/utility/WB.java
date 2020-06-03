@@ -25,6 +25,8 @@ public class WB {
 
 
   public static final String PATH_INDEX = "/index";
+  public static final String PATH_CREATE = "/create";
+
 
   // PATH_XX_JSP series
   public static final String PATH_INDEX_JSP   = "/WEB-INF/views/tasks/index.jsp";

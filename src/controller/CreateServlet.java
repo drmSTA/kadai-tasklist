@@ -16,7 +16,7 @@ import utility.WB;
 /**
  * Servlet implementation class CreateServlet
  */
-@WebServlet("/create")
+@WebServlet(WB.PATH_CREATE)
 public class CreateServlet extends HttpServlet {
   private static final long serialVersionUID = 20200604L;
 
