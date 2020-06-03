@@ -17,22 +17,31 @@ public class DBHandler {
   task に特化しているため、 各メソッドも static で十分
    */
 
-  private static final String PERSISTENCE_UNIT_NAME = "tasklist";
-  private static final EntityManager ENTITY_MANAGER = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME).createEntityManager();
 
   public static List<Task> getTasks(int page, int maximumElementPerPage){
-    List<Task> result = ENTITY_MANAGER.createNamedQuery(Task.GET_ALL_TASKS, Task.class)
+    EntityManager entityManager = EntityManager4TaskList.getEntityManager();
+    List<Task> result = entityManager.createNamedQuery(Task.GET_ALL_TASKS, Task.class)
                                .setFirstResult(maximumElementPerPage * (page - 1))
                                .setMaxResults(maximumElementPerPage)
                                .getResultList();
+    entityManager.close();
     return result;
   }
 
   public static long getTotalCountOfTasks(){
-    long result = (long)ENTITY_MANAGER.createNamedQuery(Task.GET_TASKS_COUNT, Long.class)
+    EntityManager entityManager = EntityManager4TaskList.getEntityManager();
+    long result = (long)entityManager.createNamedQuery(Task.GET_TASKS_COUNT, Long.class)
                                   .getSingleResult();
-
+    entityManager.close();
     return result;
+  }
+
+  public static void addTaskIntoDB(Task task){
+    EntityManager entityManager = EntityManager4TaskList.getEntityManager();
+    entityManager.getTransaction().begin();
+    entityManager.persist(task);
+    entityManager.getTransaction().commit();
+    entityManager.close();
   }
 
 }
