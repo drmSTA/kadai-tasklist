@@ -17,31 +17,45 @@ public class DBHandler {
   task に特化しているため、 各メソッドも static で十分
    */
 
-
   public static List<Task> getTasks(int page, int maximumElementPerPage){
     EntityManager entityManager = EntityManager4TaskList.getEntityManager();
+
     List<Task> result = entityManager.createNamedQuery(Task.GET_ALL_TASKS, Task.class)
                                .setFirstResult(maximumElementPerPage * (page - 1))
                                .setMaxResults(maximumElementPerPage)
                                .getResultList();
+
     entityManager.close();
     return result;
   }
 
   public static long getTotalCountOfTasks(){
     EntityManager entityManager = EntityManager4TaskList.getEntityManager();
+
     long result = (long)entityManager.createNamedQuery(Task.GET_TASKS_COUNT, Long.class)
                                   .getSingleResult();
+
     entityManager.close();
     return result;
   }
 
   public static void addTaskIntoDB(Task task){
     EntityManager entityManager = EntityManager4TaskList.getEntityManager();
+
     entityManager.getTransaction().begin();
     entityManager.persist(task);
     entityManager.getTransaction().commit();
+
     entityManager.close();
+  }
+
+  public static Task getTask(int id){
+    EntityManager entityManager = EntityManager4TaskList.getEntityManager();
+
+    Task result = (Task)entityManager.find(Task.class, id);
+
+    entityManager.close();
+    return result;
   }
 
 }

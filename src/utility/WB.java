@@ -23,7 +23,7 @@ public class WB {
   public static final String PATH_INDEX = "/index";
   public static final String PATH_INDEX_JSP = "/WEB-INF/views/tasks/index.jsp";
   public static final String PATH_NEW_JSP = "/WEB-INF/views/tasks/new.jsp";
-
+  public static final String PATH_SHOW_JSP = "/WEB-INF/views/tasks/show.jsp";
 
 
 
