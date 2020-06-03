@@ -1,12 +1,8 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,7 +18,7 @@ import utility.WB;
  */
 @WebServlet("/create")
 public class CreateServlet extends HttpServlet {
-  private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 20200604L;
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -38,30 +34,25 @@ public class CreateServlet extends HttpServlet {
     //CSRF対策
     String _token = (String)request.getParameter(WB.KEY_TOKEN);
     if(_token != null && _token.equals(request.getSession().getId())) {
-
-        // contents for message
+        // 前ページ より content を取得、task インスタンスの作成
         String content = request.getParameter(WB.KEY_CONTENT);
         Task task = new Task(content);
 
-        // perform validation and return to Create Form if error in contents
+        // taskインスタンスの validation を行う
         List<String> errorMessages = task.validate();
 
         if(errorMessages.size() > 0) {
-            // set data  and alert (if it has) in Create Form
+            // task インスタンスに不具合があるため errorMessages とともに new.jsp へ転送
             request.setAttribute(WB.KEY_TOKEN                 , _token);
             request.setAttribute(WB.KEY_TASK                     , task);
             request.setAttribute(WB.KEY_ERROR_MESSAGES , errorMessages);
-
-            // back to Create Form
-            RequestDispatcher rd = request.getRequestDispatcher(WB.PATH_NEW_JSP);
-            rd.forward(request, response);
+            request.getRequestDispatcher(WB.PATH_NEW_JSP).forward(request, response);
         } else {
-            // perform a commitment
+            // DBへ登録
             DBHandler.addNewTaskIntoDB(task);
-            // set a notice
-            request.getSession().setAttribute(WB.KEY_FLUSH, "登録が完了しました。");
 
-            // go to Index Page of TASKS
+            // flush を設定し、index ページへリダイレクト
+            request.getSession().setAttribute(WB.KEY_FLUSH, "登録が完了しました。");
             response.sendRedirect(request.getContextPath() + WB.PATH_INDEX);
         }
     }
