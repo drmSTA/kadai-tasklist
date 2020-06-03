@@ -20,5 +20,5 @@ public class WB {
   public static final String KEY_UPDATED_DATE = "updatedAt";
 
 
-  public static final String PATH_VIEW_JSP = "/WEB-INF/views/tasks/";
+  public static final String PATH_INDEX_JSP = "/WEB-INF/views/tasks/index.jsp";
 }
