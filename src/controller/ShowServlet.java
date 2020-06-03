@@ -30,7 +30,7 @@ public class ShowServlet extends HttpServlet {
    * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
    */
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    int id = Integer.parseInt(request.getParameter("id"));
+    int id = Integer.parseInt(request.getParameter(WB.KEY_ID));
     Task task = DBHandler.getTask(id);
     request.setAttribute(WB.KEY_TASK, task);
 
